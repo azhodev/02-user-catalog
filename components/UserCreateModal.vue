@@ -9,7 +9,7 @@
         <Transition name="scale-fade">
           <div
             v-show="visible"
-            class="bg-white w-full max-w-md rounded-xl p-6 space-y-4 shadow-xl"
+            class="bg-white w-full max-w-md rounded-xl p-6 space-y-4 shadow-xl mx-4 md:mx-0"
           >
             <h2 class="text-xl font-semibold">➕ Add New User</h2>
             <div class="space-y-2">

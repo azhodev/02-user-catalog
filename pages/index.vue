@@ -9,16 +9,10 @@ const userStore = useUsersStore()
 const router = useRouter()
 
 const showModal = ref(false)
-const tbody = ref<HTMLElement | null>(null)
 const cards = ref<HTMLElement | null>(null)
 
 function goToDetails(userId: number) {
   router.push(`/users/${userId}`)
-}
-
-function editUser(userId: number, event: Event) {
-  event.stopPropagation()
-  alert(`Edit user with id: ${userId}`)
 }
 
 function deleteUser(userId: number, event: Event) {
@@ -30,7 +24,6 @@ function deleteUser(userId: number, event: Event) {
 
 onMounted(() => {
   if (!userStore.users?.length) userStore.fetchUsers()
-  if (tbody.value) autoAnimate(tbody.value)
   if (cards.value) autoAnimate(cards.value)
 })
 </script>
@@ -39,16 +32,25 @@ onMounted(() => {
   <div class="p-4 sm:p-6">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">User Catalog</h1>
-      <button class="btn-primary" @click="showModal = true">➕ Add</button>
+      <button
+        class="btn-primary"
+        @click="showModal = true"
+      >➕ Add</button>
     </div>
 
     <div v-if="userStore.isLoading">Loading...</div>
-    <div v-else-if="userStore.error" class="text-red-500">
+    <div
+      v-else-if="userStore.error"
+      class="text-red-500"
+    >
       Error: {{ userStore.error.message }}
     </div>
 
     <!-- 📱 Mobile Cards -->
-    <div class="grid gap-4 md:hidden" ref="cards">
+    <div
+      class="grid gap-4 md:hidden"
+      ref="cards"
+    >
       <div
         v-for="user in userStore.users"
         :key="user.id"
@@ -83,30 +85,50 @@ onMounted(() => {
             <th class="p-3">Actions</th>
           </tr>
         </thead>
-        <tbody ref="tbody" >
-          <tr
-            v-for="user in userStore.users"
-            :key="user.id"
-            class="hover:bg-gray-100 cursor-pointer border-b border-gray-400 last:border-b-0 transition"
-            @click="goToDetails(user.id)"
-          >
-            <td class="p-3 font-medium">{{ user.name }}</td>
-            <td class="p-3 text-sm text-gray-600">{{ user.email }}</td>
-            <td class="p-3 text-sm">{{ user.address?.city }}</td>
-            <td class="p-3 text-sm italic">{{ user.company?.name }}</td>
-            <td class="p-3 space-x-3">
-              <button
-                class="text-red-600 hover:underline text-sm"
-                @click="deleteUser(user.id, $event)"
-              >
-                🗑️ Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
+        <tr
+          v-for="user in userStore.users"
+          :key="user.id"
+          v-motion
+          :initial="{ opacity: 0, y: 10 }"
+          :enter="{ opacity: 1, y: 0 }"
+          :leave="{ opacity: 0, y: -10 }"
+          class="transition-all duration-300 ease-in-out hover:bg-gray-100 cursor-pointer border-b border-gray-400 last:border-b-0"
+          @click="goToDetails(user.id)"
+        >
+          <td class="p-3 font-medium">{{ user.name }}</td>
+          <td class="p-3 text-sm text-gray-600">{{ user.email }}</td>
+          <td class="p-3 text-sm">{{ user.address?.city }}</td>
+          <td class="p-3 text-sm italic">{{ user.company?.name }}</td>
+          <td class="p-3">
+            <button
+              class="text-red-600 hover:underline text-sm"
+              @click.stop="deleteUser(user.id, $event)"
+            >
+              🗑️ Delete
+            </button>
+          </td>
+        </tr>
+
+
+
       </table>
     </div>
 
-    <UserCreateModal v-if="showModal" @close="showModal = false" />
+    <UserCreateModal
+      v-if="showModal"
+      @close="showModal = false"
+    />
   </div>
 </template>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 300ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+</style>
