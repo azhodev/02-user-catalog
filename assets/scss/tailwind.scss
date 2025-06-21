@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Твои базовые reset'ы */
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-neutral-50 text-zinc-800;
+    overflow: scroll;
+  }
+}
+
+/* Кастомные компоненты */
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition;
+  }
+
+  .btn-primary {
+    @apply btn bg-amber-600 text-white hover:bg-amber-700;
+  }
+
+  .btn-outline {
+    @apply btn border border-zinc-300 text-zinc-700 hover:bg-zinc-100;
+  }
+
+  .card {
+    @apply bg-white border border-zinc-200 rounded-xl p-4 shadow-sm;
+  }
+}
+
+/* Утилиты (на случай кастома) */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
