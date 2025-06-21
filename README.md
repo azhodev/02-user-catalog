@@ -1,75 +1,27 @@
-# Nuxt Minimal Starter
+# 🧑‍💼 Nuxt 3 User Manager
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Простое и стильное приложение на Nuxt 3 для управления пользователями с использованием [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
 
-## Setup
+## 🚀 Функции
 
-Make sure to install dependencies:
+- 📋 Просмотр списка пользователей
+- 🔍 Детальная страница пользователя
+- ✏️ Редактирование данных
+- 🆕 Добавление нового пользователя
+- 🗑️ Удаление
+- ✅ Переключение между вкладками (Posts / Todos)
+- 🎨 Плавные анимации (AutoAnimate)
+- 📱 Адаптивный интерфейс
+
+## 🛠️ Стек
+
+- [Nuxt 3](https://nuxt.com/)
+- [Pinia](https://pinia.vuejs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [@formkit/auto-animate](https://github.com/formkit/auto-animate)
+
+## 🧪 Установка и запуск
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
