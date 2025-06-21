@@ -22,7 +22,7 @@ export const useTodosStore = defineStore('todos', () => {
         const res = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${userId}`)
         if (!res.ok) throw new Error('Ошибка загрузки задач')
         return await res.json()
-      }, retryDelay)
+      }, {retryDelay})
 
       todos.value = data
     } catch (err: any) {

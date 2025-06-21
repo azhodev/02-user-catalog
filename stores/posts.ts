@@ -22,7 +22,7 @@ export const usePostsStore = defineStore('posts', () => {
         const res = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
         if (!res.ok) throw new Error('Ошибка загрузки постов')
         return await res.json()
-      }, retryDelay)
+      }, {retryDelay})
 
       posts.value = data
     } catch (err: any) {

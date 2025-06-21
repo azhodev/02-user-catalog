@@ -1,27 +1,12 @@
 import { defineStore } from 'pinia'
 import { retryUntilSuccess } from '~/utils/useRetry'
+import type { User } from '~/types/user'
 
-interface User {
-  id: number
-  name: string
-  username: string
-  email: string
-  phone: string
-  website: string
-  address?: {
-    city?: string
-    street?: string
-  }
-  company?: {
-    name?: string
-    catchPhrase?: string
-  }
-}
 
 export const useUsersStore = defineStore('users', () => {
   const users = ref<User[]>([])
   const selectedUser = ref<User | null>(null)
-  const isLoading = ref(false)
+  const isLoading = ref<Boolean>(false)
   const error = ref<Error | null>(null)
 
   async function fetchUsers() {

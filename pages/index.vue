@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import 'vue-loading-overlay/dist/css/index.css'
+import { ref, onMounted } from 'vue'
+
 import { useUsersStore } from '~/stores/users'
 import { useRouter } from 'vue-router'
 import autoAnimate from '@formkit/auto-animate'
+import Loading from 'vue-loading-overlay'
 
 import UserCreateModal from '~/components/UserCreateModal.vue'
 
@@ -33,7 +37,7 @@ onMounted(async () => {
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">User Catalog</h1>
       <button
-        class="btn-primary"
+        class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
         @click="showModal = true"
       >➕ Add</button>
     </div>
@@ -108,9 +112,6 @@ onMounted(async () => {
             </button>
           </td>
         </tr>
-
-
-
       </table>
     </div>
 
@@ -118,6 +119,7 @@ onMounted(async () => {
       v-if="showModal"
       @close="showModal = false"
     />
+    <Loading v-if="userStore.isLoading" :active="true" :can-cancel="false" />
   </div>
 </template>
 <style scoped>

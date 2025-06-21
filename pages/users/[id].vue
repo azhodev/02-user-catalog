@@ -13,8 +13,8 @@ const tab = ref<'posts' | 'todos'>('posts')
 const editBlock = ref<HTMLElement | null>(null)
 const tabContent = ref<HTMLElement | null>(null)
 
-const activeTabClass = 'font-semibold border-b-2 border-blue-600 pb-1'
-const inactiveTabClass = 'text-gray-500 hover:text-blue-600'
+const activeTabClass = 'font-semibold border-b-2 border-blue-600 pb-1 text-blue-600 hover:text-blue-800'
+const inactiveTabClass = 'text-gray-500 hover:text-blue-600 transition duration-300 hover:border-b-2 hover:border-blue-600 pb-1'
 
 
 const route = useRoute()
@@ -67,6 +67,9 @@ async function saveEdit() {
       catchPhrase: form.catchPhrase
     }
   })
+  
+  user.value = userStore.users.find(u => u.id === userId) || null
+  
   isEditing.value = false
 }
 
@@ -78,13 +81,13 @@ function deleteUser() {
 }
 
 onMounted(() => {
-  if (editBlock.value) autoAnimate(editBlock.value)
   if (tabContent.value) autoAnimate(tabContent.value)
+  if (editBlock.value) autoAnimate(editBlock.value)
 })
 
 onMounted(async () => {
   try {
-    user.value = await userStore.fetchUserById(userId)
+    user.value = userStore.users.find(u => u.id === userId) || null
   } catch (err) {
     console.error('Failed to load user:', err)
   }
@@ -97,7 +100,7 @@ onMounted(async () => {
     <div class="mt-6 p-6">
       <NuxtLink
         to="/"
-        class="text-blue-600 hover:underline"
+        class="text-blue-600 flex hover:transform hover:-translate-x-1 text-sm font-medium hover:text-blue-800 transition duration-200 active:translate-x-0.5"
       >
         ← Back to user catalog
       </NuxtLink>
@@ -125,14 +128,14 @@ onMounted(async () => {
             <button
               v-if="!isEditing"
               @click="startEdit"
-              class="text-blue-600 hover:underline text-sm"
+              class="text-blue-600 text-sm cursor-pointer hover:text-blue-800 transition duration-200 border-1 border-blue-600 px-3 py-1 rounded hover:bg-blue-50"
             >
               ✏️ Edit
             </button>
             <button
               v-if="!isEditing"
               @click="deleteUser"
-              class="text-red-600 hover:underline text-sm"
+              class="text-red-600 text-sm cursor-pointer hover:text-red-800 transition duration-200 border-1 border-red-600 px-3 py-1 rounded hover:bg-red-50"
             >
               🗑️ Delete
             </button>
@@ -206,13 +209,13 @@ onMounted(async () => {
             <div class="flex gap-3 mt-2">
               <button
                 @click="saveEdit"
-                class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer"
+                class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
               >
                 💾 Save
               </button>
               <button
                 @click="cancelEdit"
-                class="px-4 py-2 bg-gray-300 rounded cursor-pointer"
+                class="px-4 py-2 bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
               >
                 ✖️ Cancel
               </button>
