@@ -22,8 +22,8 @@ function deleteUser(userId: number, event: Event) {
   }
 }
 
-onMounted(() => {
-  if (!userStore.users?.length) userStore.fetchUsers()
+onMounted(async () => {
+  if (!userStore.users?.length) await userStore.fetchUsers()
   if (cards.value) autoAnimate(cards.value)
 })
 </script>
@@ -74,7 +74,7 @@ onMounted(() => {
     </div>
 
     <!-- 💻 Desktop Table -->
-    <div class="hidden md:block overflow-x-auto rounded-lg shadow">
+    <div class="hidden md:block rounded-lg shadow">
       <table class="min-w-full table-auto border border-gray-200">
         <thead class="bg-gray-100 text-left border-b border-gray-400">
           <tr>

@@ -2,11 +2,13 @@
 import autoAnimate from '@formkit/auto-animate'
 import { useRoute, useRouter } from 'vue-router'
 import { useUsersStore } from '~/stores/users'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import type { User } from '~/types/user'
 
 import UserPosts from '~/components/UserPosts.vue'
 import UserTodos from '~/components/UserTodos.vue'
 
+const user = ref<User | null>(null)
 const tab = ref<'posts' | 'todos'>('posts')
 const editBlock = ref<HTMLElement | null>(null)
 const tabContent = ref<HTMLElement | null>(null)
@@ -21,8 +23,6 @@ const userId = Number(route.params.id)
 
 const userStore = useUsersStore()
 const isEditing = ref(false)
-
-const user = computed(() => userStore.users?.find(u => u.id === userId))
 
 const form = reactive({
   name: '',
@@ -77,20 +77,23 @@ function deleteUser() {
   }
 }
 
-onMounted(async () => {
-  if (!userStore.users) {
-    await userStore.fetchUsers()
-  }
-})
 onMounted(() => {
   if (editBlock.value) autoAnimate(editBlock.value)
   if (tabContent.value) autoAnimate(tabContent.value)
 })
+
+onMounted(async () => {
+  try {
+    user.value = await userStore.fetchUserById(userId)
+  } catch (err) {
+    console.error('Failed to load user:', err)
+  }
+})
+
 </script>
 
 <template>
   <div>
-
     <div class="mt-6 p-6">
       <NuxtLink
         to="/"
@@ -101,15 +104,17 @@ onMounted(() => {
     </div>
 
     <div class="p-6 max-w-3xl">
-      <div v-if="userStore.isLoading">Loading...</div>
+      <div
+        v-if="userStore.isLoading || !user"
+        class="flex justify-center py-10"
+      >
+        <div class="w-8 h-8 border-4 border-gray-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
       <div
         v-else-if="userStore.error"
         class="text-red-600"
       >
         Error: {{ userStore.error.message }}
-      </div>
-      <div v-else-if="!user">
-        <p class="text-gray-500">User not found.</p>
       </div>
       <div v-else>
         <div class="flex justify-between items-center mb-4">
