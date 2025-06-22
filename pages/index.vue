@@ -59,7 +59,7 @@ useHead({
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">User Catalog</h1>
       <button
-        class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
+        class="px-4 py-2 bg-amber-600 text-white rounded cursor-pointer hover:bg-amber-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
         @click="showModal = true"
       >➕ Add</button>
     </div>
@@ -123,7 +123,7 @@ useHead({
           <td class="p-3 text-sm italic">{{ user.company?.name }}</td>
           <td class="p-3">
             <button
-              class="text-red-600 text-sm active:scale-95 transition duration-200 hover:text-red-800 border-1 border-red-600 px-3 py-1 rounded hover:bg-red-50 cursor-pointer"
+              class="text-red-600 text-sm active:scale-95 transition duration-200 hover:text-red-800 hover:scale-105 border-1 border-red-600 px-3 py-1 rounded hover:bg-red-50 cursor-pointer"
               @click.stop="deleteUser(user.id, $event)"
             >
               🗑️ Delete

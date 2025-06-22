@@ -13,8 +13,8 @@ const tab = ref<'posts' | 'todos'>('posts')
 const editBlock = ref<HTMLElement | null>(null)
 const tabContent = ref<HTMLElement | null>(null)
 
-const activeTabClass = 'font-semibold border-b-2 border-blue-600 pb-1 text-blue-600 hover:text-blue-800'
-const inactiveTabClass = 'text-gray-500 hover:text-blue-600 transition duration-300 hover:border-b-2 hover:border-blue-600 pb-1'
+const activeTabClass = 'font-semibold border-b-2 border-amber-600 pb-1 text-amber-600 hover:text-amber-800'
+const inactiveTabClass = 'text-gray-500 hover:text-amber-600 transition duration-300 hover:border-b-2 hover:border-amber-600 pb-1'
 
 
 const route = useRoute()
@@ -112,7 +112,7 @@ useHead({
     <div class="mt-6 p-6">
       <NuxtLink
         to="/"
-        class="text-blue-600 flex hover:transform hover:-translate-x-1 text-sm font-medium hover:text-blue-800 transition duration-200 active:translate-x-0.5"
+        class="text-amber-600 flex hover:transform hover:-translate-x-1 text-sm font-medium hover:text-amber-800 transition duration-200 active:translate-x-0.5"
       >
         ← Back to user catalog
       </NuxtLink>
@@ -140,7 +140,7 @@ useHead({
             <button
               v-if="!isEditing"
               @click="startEdit"
-              class="text-blue-600 text-sm cursor-pointer hover:text-blue-800 transition duration-200 border-1 border-blue-600 px-3 py-1 m-0 rounded hover:bg-blue-50"
+              class="text-amber-600 text-sm cursor-pointer hover:text-amber-800 transition duration-200 border-1 border-amber-600 px-3 py-1 m-0 rounded hover:bg-amber-50"
             >
               ✏️ Edit
             </button>
@@ -221,7 +221,7 @@ useHead({
             <div class="flex gap-3 mt-2">
               <button
                 @click="saveEdit"
-                class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
+                class="px-4 py-2 bg-amber-600 text-white rounded cursor-pointer hover:bg-amber-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95"
               >
                 💾 Save
               </button>
@@ -242,7 +242,7 @@ useHead({
               <a
                 :href="`https://${user.website}`"
                 target="_blank"
-                class="text-blue-600 underline"
+                class="text-amber-600 underline"
               >
                 {{ user.website }}
               </a>

@@ -19,7 +19,7 @@
               <input v-model="form.company" placeholder="Company" class="w-full border px-3 py-2 rounded" />
             </div>
             <div class="flex justify-end gap-2">
-              <button @click="onSave" class="px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95">💾 Save</button>
+              <button @click="onSave" class="px-4 py-2 bg-amber-600 text-white rounded cursor-pointer hover:bg-amber-700 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95">💾 Save</button>
               <button @click="$emit('close')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded cursor-pointer hover:bg-gray-300 transition duration-100 hover:shadow-lg hover:scale-105 transform active:scale-95">✖️ Cancel</button>
             </div>
           </div>
