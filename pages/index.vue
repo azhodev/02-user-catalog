@@ -7,13 +7,19 @@ import { useRouter } from 'vue-router'
 import autoAnimate from '@formkit/auto-animate'
 import Loading from 'vue-loading-overlay'
 
-import UserCreateModal from '~/components/UserCreateModal.vue'
+const UserCreateModal = defineAsyncComponent(() => import('~/components/UserCreateModal.vue'))
 
 const userStore = useUsersStore()
 const router = useRouter()
 
 const showModal = ref(false)
 const cards = ref<HTMLElement | null>(null)
+
+const isMobile = ref(false)
+
+function checkViewport() {
+  isMobile.value = window.innerWidth < 768
+}
 
 function goToDetails(userId: number) {
   router.push(`/users/${userId}`)
@@ -30,6 +36,22 @@ onMounted(async () => {
   if (!userStore.users?.length) await userStore.fetchUsers()
   if (cards.value) autoAnimate(cards.value)
 })
+
+onMounted(() => {
+  checkViewport()
+  window.addEventListener('resize', checkViewport)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkViewport)
+})
+
+useHead({
+  title: 'User Catalog',
+  meta: [
+    { name: 'description', content: 'All users.' }
+  ]
+})
 </script>
 
 <template>
@@ -42,16 +64,9 @@ onMounted(async () => {
       >➕ Add</button>
     </div>
 
-    <div v-if="userStore.isLoading">Loading...</div>
-    <div
-      v-else-if="userStore.error"
-      class="text-red-500"
-    >
-      Error: {{ userStore.error.message }}
-    </div>
-
     <!-- 📱 Mobile Cards -->
     <div
+      v-if="isMobile"
       class="grid gap-4 md:hidden"
       ref="cards"
     >
@@ -78,7 +93,10 @@ onMounted(async () => {
     </div>
 
     <!-- 💻 Desktop Table -->
-    <div class="hidden md:block rounded-lg shadow">
+    <div
+      v-else
+      class="hidden md:block rounded-lg shadow"
+    >
       <table class="min-w-full table-auto border border-gray-200">
         <thead class="bg-gray-100 text-left border-b border-gray-400">
           <tr>
@@ -119,7 +137,11 @@ onMounted(async () => {
       v-if="showModal"
       @close="showModal = false"
     />
-    <Loading v-if="userStore.isLoading" :active="true" :can-cancel="false" />
+    <Loading
+      v-if="userStore.isLoading"
+      :active="true"
+      :can-cancel="false"
+    />
   </div>
 </template>
 <style scoped>

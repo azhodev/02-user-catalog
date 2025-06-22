@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+.user-input {
+  @apply focus:outline-none focus:ring-2 text-lg focus:border-transparent text-amber-700;
+  @apply border-2 border-gray-300 rounded-lg p-2;
+  @apply w-full border px-3 py-2 rounded;
+}

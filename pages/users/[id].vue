@@ -99,7 +99,12 @@ onMounted(async () => {
     console.error('Failed to load user:', err)
   }
 })
-
+useHead({
+  title: 'User Profile',
+  meta: [
+    { name: 'description', content: 'Details of the selected user.' }
+  ]
+})
 </script>
 
 <template>
@@ -131,11 +136,11 @@ onMounted(async () => {
           <h1 class="text-3xl font-bold">
             {{ isEditing ? 'Edit User' : user.name }}
           </h1>
-          <div class="space-x-2">
+          <div class="space-x-2 flex items-center justify-end flex-wrap gap-2">
             <button
               v-if="!isEditing"
               @click="startEdit"
-              class="text-blue-600 text-sm cursor-pointer hover:text-blue-800 transition duration-200 border-1 border-blue-600 px-3 py-1 rounded hover:bg-blue-50"
+              class="text-blue-600 text-sm cursor-pointer hover:text-blue-800 transition duration-200 border-1 border-blue-600 px-3 py-1 m-0 rounded hover:bg-blue-50"
             >
               ✏️ Edit
             </button>
@@ -150,7 +155,7 @@ onMounted(async () => {
         </div>
 
         <div
-          class="space-y-2 text-gray-700 border border-gray-200 p-4 rounded bg-gray-50 shadow"
+          class="space-y-2 text-gray-700 border border-gray-200 p-4 rounded bg-gray-50 shadow transform transition-"
           ref="editBlock"
         >
           <div
@@ -161,56 +166,56 @@ onMounted(async () => {
               <span class="block font-medium">Name:</span>
               <input
                 v-model="form.name"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Email:</span>
               <input
                 v-model="form.email"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Phone:</span>
               <input
                 v-model="form.phone"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Website:</span>
               <input
                 v-model="form.website"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">City:</span>
               <input
                 v-model="form.city"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Street:</span>
               <input
                 v-model="form.street"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Company:</span>
               <input
                 v-model="form.company"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <label>
               <span class="block font-medium">Catchphrase:</span>
               <input
                 v-model="form.catchPhrase"
-                class="w-full border px-3 py-2 rounded"
+                class="user-input"
               />
             </label>
             <div class="flex gap-3 mt-2">
@@ -287,8 +292,5 @@ onMounted(async () => {
 
 </template>
 
-<style scoped>
-input {
-  /* @apply focus:outline-none focus:ring-2 text-lg focus:border-transparent; */
-}
+<style>
 </style>
