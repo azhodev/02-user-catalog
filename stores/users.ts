@@ -142,6 +142,4 @@ export const useUsersStore = defineStore('users', () => {
     updateUser,
     deleteUser
   }
-}, {
-  persist: true
 })

@@ -6,17 +6,18 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
+  css: [
+    '~/assets/css/main.css'
+  ],
   devtools: { enabled: true },
   modules: [
     '@nuxt/eslint',
     '@nuxt/icon',
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
   ],
-  css: ['~/assets/scss/tailwind.scss'],
-  tailwindcss: {
-    exposeConfig: true,
-    viewer: true,
-    // and more...
+  vite: {
+    plugins: [
+      tailwindcss(),
+    ],
   }
-})
+}) 

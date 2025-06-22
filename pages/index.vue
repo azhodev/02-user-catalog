@@ -105,7 +105,7 @@ onMounted(async () => {
           <td class="p-3 text-sm italic">{{ user.company?.name }}</td>
           <td class="p-3">
             <button
-              class="text-red-600 hover:underline text-sm"
+              class="text-red-600 text-sm active:scale-95 transition duration-200 hover:text-red-800 border-1 border-red-600 px-3 py-1 rounded hover:bg-red-50 cursor-pointer"
               @click.stop="deleteUser(user.id, $event)"
             >
               🗑️ Delete

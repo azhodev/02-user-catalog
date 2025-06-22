@@ -86,6 +86,13 @@ onMounted(() => {
 })
 
 onMounted(async () => {
+  if (!userStore.users.length) {
+    try {
+      await userStore.fetchUsers()
+    } catch (err) {
+      console.error('Failed to fetch users:', err)
+    }
+  }
   try {
     user.value = userStore.users.find(u => u.id === userId) || null
   } catch (err) {
@@ -242,7 +249,6 @@ onMounted(async () => {
           </div>
         </div>
 
-
       </div>
     </div>
 
@@ -280,3 +286,9 @@ onMounted(async () => {
   </div>
 
 </template>
+
+<style scoped>
+input {
+  /* @apply focus:outline-none focus:ring-2 text-lg focus:border-transparent; */
+}
+</style>

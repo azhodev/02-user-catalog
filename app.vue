@@ -1,4 +1,3 @@
-
 <template>
   <div class="container mx-auto rounded-2xl">
     <NuxtPage />
