@@ -22,6 +22,7 @@ const router = useRouter()
 const userId = Number(route.params.id)
 
 const userStore = useUsersStore()
+const toast = useAppToast()
 const isEditing = ref(false)
 
 const form = reactive({
@@ -66,7 +67,7 @@ async function saveEdit() {
       name: form.company,
       catchPhrase: form.catchPhrase
     }
-  })
+  }, toast)
   
   user.value = userStore.users.find(u => u.id === userId) || null
   
@@ -75,7 +76,7 @@ async function saveEdit() {
 
 function deleteUser() {
   if (confirm('Are you sure you want to delete this user?')) {
-    userStore.deleteUser(userId)
+    userStore.deleteUser(userId, toast)
     router.push('/')
   }
 }
