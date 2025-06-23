@@ -9,7 +9,7 @@ export const useUsersStore = defineStore('users', () => {
   const isLoading = ref<Boolean>(false)
   const error = ref<Error | null>(null)
 
-  async function fetchUsers(toast?: ReturnType<typeof useAppToast>) {
+  async function fetchUsers() {
     isLoading.value = true
     error.value = null
 
@@ -27,10 +27,8 @@ export const useUsersStore = defineStore('users', () => {
 
       users.value = data
       error.value = null
-
     } catch (err: any) {
       error.value = err
-      toast?.error('Failed to load users')
     } finally {
       isLoading.value = false
     }
@@ -48,7 +46,7 @@ export const useUsersStore = defineStore('users', () => {
         return await res.json()
       }, {
         retryDelay: 1000,
-        maxRetries: 1,
+        maxRetries: 5,
         backoffFactor: 2,
         timeoutMs: 15000
       })

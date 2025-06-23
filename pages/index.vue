@@ -1,32 +1,31 @@
 <script setup lang="ts">
 import 'vue-loading-overlay/dist/css/index.css'
 import { ref, onMounted } from 'vue'
-import { useEventListener, useDebounceFn } from '@vueuse/core'
+
 import { useUsersStore } from '~/stores/users'
 import { useRouter } from 'vue-router'
 import autoAnimate from '@formkit/auto-animate'
-const Loading = defineAsyncComponent(() => import('vue-loading-overlay'))
+import Loading from 'vue-loading-overlay'
 
 const UserCreateModal = defineAsyncComponent(() => import('~/components/UserCreateModal.vue'))
 
-const router = useRouter()
 const userStore = useUsersStore()
-const toast = useAppToast()
+const router = useRouter()
 
 const showModal = ref(false)
 const cards = ref<HTMLElement | null>(null)
 
 const isMobile = ref(false)
 
-const checkViewport = () => {
+function checkViewport() {
   isMobile.value = window.innerWidth < 768
 }
 
-const goToDetails = (userId: number) => {
+function goToDetails(userId: number) {
   router.push(`/users/${userId}`)
 }
 
-const deleteUser = (userId: number, event: Event) => {
+function deleteUser(userId: number, event: Event) {
   event.stopPropagation()
   if (confirm('Are you sure you want to delete this user?')) {
     userStore.deleteUser(userId)
@@ -34,15 +33,18 @@ const deleteUser = (userId: number, event: Event) => {
 }
 
 onMounted(async () => {
-  if (!userStore.users?.length) await userStore.fetchUsers(toast)
+  if (!userStore.users?.length) await userStore.fetchUsers()
   if (cards.value) autoAnimate(cards.value)
 })
 
 onMounted(() => {
   checkViewport()
+  window.addEventListener('resize', checkViewport)
 })
 
-useEventListener('resize', useDebounceFn(checkViewport, 300))
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkViewport)
+})
 
 useHead({
   title: 'User Catalog',
